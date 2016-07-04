@@ -1,4 +1,8 @@
-﻿# Adding PS Snapin
+﻿# to run the script, ensure ExecutionPolicy allows that:
+# Get-ExecutionPolicy
+# Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+
+# Adding PS Snapin
 
 # This is a common function i am using which will release excel objects
 
@@ -25,6 +29,15 @@ $workbookTitle = “Service Transition ASSET Setup.xlsm”
 
 # Directory location where we have our excel files. Note: path should have trailing slash
 $ExcelFilesLocation = “some_path_here”
+
+# set the client name as listed in Augmenta
+$clientName = "some_value"
+
+# set path to json file
+$pathJson = "some_path"
+
+# set name of json file
+$titleJson = "some_title.json"
 
 # Creating excel object
 
@@ -59,7 +72,7 @@ Do {
 
     $pollDescription = $UserSheet.Cells.Item($startRow, 7).Value()
 
-"""Endava.com"": {`n`t""$asset_Name" + "-" + "$poll_Name"" :  {`n`t`t""asset_name"": ""$asset_Name"",`n`t`t""poll_name"": ""$poll_Name"",`n`t`t""description"" : ""$pollDescription"",`n`t`t""is_suspended"" : true`n`t}`n}" | Out-File -Append -FilePath C:\Users\amoraru\Desktop\output.json
+"""$clientName"": {`n`t""$asset_Name" + "-" + "$poll_Name"" :  {`n`t`t""asset_name"": ""$asset_Name"",`n`t`t""poll_name"": ""$poll_Name"",`n`t`t""description"" : ""$pollDescription"",`n`t`t""is_suspended"" : true`n`t}`n}" | Out-File -Append -FilePath $pathJson + $titleJson
   }
 
 
